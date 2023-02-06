@@ -18,12 +18,12 @@ const hideCartHandler = () => {
 
   return (
     <CartProvider>
-      {cartIsShown && <Cart onClose={hideCartHandler}/>}
       {/* the convention for the props that holds a function is to start with on */}
       <Header onShowCart={showCartHandler}/>
       <main>
         <Meals/>
       </main>
+      {cartIsShown && <Cart onClose={hideCartHandler}/>}
     </CartProvider>   
   );
 }

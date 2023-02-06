@@ -51,9 +51,12 @@ const cartReducer = (state, action) => {
       totalAmount: updatedTotalAmount
     }
   }
+  if(action.type === 'CLEAR') {
+    return defaultCartState;
+  }
   return defaultCartState;
 };
-//outside the component because it doesn't need any idea from the component and re-created each item the component is re-evaluated.
+//outside the component because it doesn't need any data from the component and re-created each time the component is re-evaluated.
 
 const CartProvider = (props) => {
   const [cartState, dispatchCartAction] = useReducer(
@@ -70,11 +73,16 @@ const CartProvider = (props) => {
     dispatchCartAction({ type: "REMOVE", id: id });
   };
 
+  const clearCartHander = () => {
+    dispatchCartAction({type: 'CLEAR'})
+  };
+
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemToCartHandler,
+    clearCart: clearCartHander
   };
   return (
     <CardContext.Provider value={cartContext}>
